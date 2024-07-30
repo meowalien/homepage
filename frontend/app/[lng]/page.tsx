@@ -8,7 +8,7 @@ export default async function Page({params: {lng}}: PageProps) {
 
     return (
         <>
-            <h1>{t("title")}</h1>
+            <h1 className="text-amber-500">{t("title")}</h1>
             <Link href={`/${lng}/second-page`}>{t("to-second-page")}</Link>
             <br/>
             <Link href={`/${lng}/client-page`}>{t("to-client-page")}</Link>

@@ -2,7 +2,8 @@ import type {Metadata} from "next";
 import {Inter} from "next/font/google";
 import {ReactElement} from "react";
 import {dir} from "i18next";
-import { languages } from "@/i18n/settings";
+import {languages} from "@/i18n/settings";
+import "./globals.css";
 
 type RootLayoutProps = { children: ReactElement; params: { lng: string } };
 
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
                                        children,
                                        params: {lng},
+
                                    }: Readonly<RootLayoutProps>) {
     return (
         <html lang={lng} dir={dir(lng)}>

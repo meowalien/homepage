@@ -11,7 +11,7 @@ export default function Page({ params: { lng } }: PageProps) {
   const [counter, setCounter] = useState(0);
   return (
     <>
-      <h1>{t("title")}</h1>
+      <h1 className="text-amber-500">{t("title")}</h1>
       <p>{t("counter", { count: counter })}</p>
       <div>
         <button onClick={() => setCounter(Math.max(0, counter - 1))}>-</button>
