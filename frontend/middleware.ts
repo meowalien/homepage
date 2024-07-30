@@ -1,40 +1,43 @@
-import { NextRequest, NextResponse } from "next/server";
+import {NextRequest, NextResponse} from "next/server";
 import acceptLanguage from "accept-language";
-import { fallbackLng, languages, cookieName } from "@/i18n/settings";
+import {cookieName, fallbackLng, languages} from "@/i18n/settings";
 
 acceptLanguage.languages(languages);
 
 export const config = {
-  // matcher: '/:lng*'
-  matcher: ["/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js).*)"],
+    // matcher: '/:lng*'
+    matcher: ["/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js).*)"],
 };
 
 export function middleware(req: NextRequest) {
-  let lng;
-  if (req.cookies.has(cookieName))
-    lng = acceptLanguage.get(req.cookies.get(cookieName)!.value);
-  if (!lng) lng = acceptLanguage.get(req.headers.get("Accept-Language"));
-  if (!lng) lng = fallbackLng;
+    // console.log("Current path:", req.nextUrl.pathname);
+    req.headers.set("x-current-path", req.nextUrl.pathname);
 
-  // Redirect if lng in path is not supported
-  if (
-    !languages.some((loc) => req.nextUrl.pathname.startsWith(`/${loc}`)) &&
-    !req.nextUrl.pathname.startsWith("/_next")
-  ) {
-    return NextResponse.redirect(
-      new URL(`/${lng}${req.nextUrl.pathname}`, req.url)
-    );
-  }
+    let lng;
+    if (req.cookies.has(cookieName))
+        lng = acceptLanguage.get(req.cookies.get(cookieName)!.value);
+    if (!lng) lng = acceptLanguage.get(req.headers.get("Accept-Language"));
+    if (!lng) lng = fallbackLng;
 
-  if (req.headers.has("referer")) {
-    const refererUrl = new URL(req.headers.get("referer")!);
-    const lngInReferer = languages.find((l) =>
-      refererUrl.pathname.startsWith(`/${l}`)
-    );
-    const response = NextResponse.next();
-    if (lngInReferer) response.cookies.set(cookieName, lngInReferer);
-    return response;
-  }
+    // Redirect if lng in path is not supported
+    if (
+        !languages.some((loc) => req.nextUrl.pathname.startsWith(`/${loc}`)) &&
+        !req.nextUrl.pathname.startsWith("/_next")
+    ) {
+        return NextResponse.redirect(
+            new URL(`/${lng}${req.nextUrl.pathname}`, req.url)
+        );
+    }
 
-  return NextResponse.next();
+    if (req.headers.has("referer")) {
+        const refererUrl = new URL(req.headers.get("referer")!);
+        const lngInReferer = languages.find((l) =>
+            refererUrl.pathname.startsWith(`/${l}`)
+        );
+        const response = NextResponse.next({headers:req.headers});
+        if (lngInReferer) response.cookies.set(cookieName, lngInReferer);
+        return response;
+    }
+
+    return NextResponse.next({headers:req.headers});
 }

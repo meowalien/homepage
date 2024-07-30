@@ -1,26 +1,14 @@
-import Link from "next/link";
-import { Trans } from "react-i18next/TransWithoutContext";
-import { languages } from "@/i18n/settings";
-import { useTranslation } from "@/i18n";
+import {useTranslation} from "@/i18n";
+import {FooterBase} from "./FooterBase";
+import {headers} from "next/headers";
 
 type FooterProps = { lng: string };
-export const Footer = async ({ lng }: FooterProps) => {
-  const { t } = await useTranslation(lng, "footer");
-  return (
-    <footer style={{ marginTop: 50 }}>
-      <Trans i18nKey="languageSwitcher" t={t} values={{ lng }}>
-        Switch from <strong>{lng}</strong> to:
-      </Trans>
-      {languages
-        .filter((l) => lng !== l)
-        .map((l, index) => {
-          return (
-            <span key={l}>
-              {index > 0 && " or "}
-              <Link href={`/${l}`}>{l}</Link>
-            </span>
-          );
-        })}
-    </footer>
-  );
+export const Footer = async ({lng}: FooterProps) => {
+    const {t} = await useTranslation(lng, "footer");
+    const headerList = headers();
+    const pathname = headerList.get("x-current-path");
+    if (pathname === null) {
+        throw new Error("x-current-path header is missing");
+    }
+    return <FooterBase t={t} lng={lng} pathname={pathname}/>;
 };
