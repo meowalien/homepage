@@ -10,6 +10,9 @@ export const config = {
 };
 
 export function middleware(req: NextRequest) {
+    if (req.nextUrl.pathname.startsWith("/api")) {
+        return NextResponse.next();
+    }
     // console.log("Current path:", req.nextUrl.pathname);
     req.headers.set("x-current-path", req.nextUrl.pathname);
 
@@ -34,10 +37,10 @@ export function middleware(req: NextRequest) {
         const lngInReferer = languages.find((l) =>
             refererUrl.pathname.startsWith(`/${l}`)
         );
-        const response = NextResponse.next({headers:req.headers});
+        const response = NextResponse.next({headers: req.headers});
         if (lngInReferer) response.cookies.set(cookieName, lngInReferer);
         return response;
     }
 
-    return NextResponse.next({headers:req.headers});
+    return NextResponse.next({headers: req.headers});
 }
