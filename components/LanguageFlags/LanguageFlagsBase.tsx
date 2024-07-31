@@ -21,7 +21,6 @@ export type FooterBaseProps = {
 export const LanguageFlagsBase = ({lng, pathname, children}: FooterBaseProps) => {
     // remove every thing before the second slash, if second slash is not present then return empty string
     const path = pathname?.split("/").slice(2).join("/") || "";
-    console.log("children: ", children)
     return (
         languages
                 .filter((l) => lng !== l)
