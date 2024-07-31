@@ -39,7 +39,7 @@ jobs:
         SHORT_SHA=$(echo ${{ github.sha }} | cut -c 1-8)
         docker buildx create --use
         docker buildx build --platform linux/amd64,linux/arm64 \
-          -t asia-east1-docker.pkg.dev/toolbox-412706/meow/homepage:latest \
-          -t asia-east1-docker.pkg.dev/toolbox-412706/meow/homepage:${{ github.ref_name }} \
-          -t asia-east1-docker.pkg.dev/toolbox-412706/meow/homepage:$SHORT_SHA \
+          -t asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:latest \
+          -t asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:${{ github.ref_name }} \
+          -t asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:$SHORT_SHA \
           --push .
