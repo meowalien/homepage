@@ -2,6 +2,7 @@ import {useTranslation} from "@/i18n";
 import avatarImage from "@/public/Avatar 600x600.jpg";
 import Image from "next/image";
 import MyMarkdown from "@/components/Markdown";
+import {LanguageFlags} from "@/components/LanguageFlags";
 
 type PageProps = { params: { lng: string } };
 
@@ -108,11 +109,27 @@ const FormatedMarkdown = ({markdown}: { markdown: string }) => {
     );
 }
 
+const ChangeLanguageLink = async ({lng}: { lng: string }) => {
+    const {t} = await useTranslation(lng, "translation");
+
+    return <div className="mb-6">
+        {t("change-language")}
+        <LanguageFlags lng={lng}>
+            {(tag, index) => {
+                return <span>
+                    {index > 0 && t("change-language-or")}
+                    {tag}
+                    </span>
+            }}
+        </LanguageFlags>
+    </div>
+}
+
 export default async function Page({params: {lng}}: PageProps) {
     const {t} = await useTranslation(lng, "resume");
 
     return (
-        <div className="bg-main-page-background w-full flex flex-row justify-around">
+        <div className="bg-main-page-background w-full flex flex-col items-center">
             <div className="mt-6 mb-8 w-full max-w-[980px] border-[1px] border-outline-gray bg-white">
                 <BasicInfoBar lng={lng}/>
                 <div className="flex flex-col gap-10 px-10">
@@ -124,6 +141,7 @@ export default async function Page({params: {lng}}: PageProps) {
                         <SectionTitle>{t("job_history-title")}</SectionTitle>
                         <div className="flex flex-col gap-8">
                             {
+                                // @ts-ignore
                                 t("job_history", {returnObjects: true}).map((job, index) => {
                                     return <section className="flex" key={index}>
                                         <div
@@ -152,6 +170,7 @@ export default async function Page({params: {lng}}: PageProps) {
                         <SectionTitle>{t("skills-title")}</SectionTitle>
                         <div className="grid gap-9 grid-cols-3">
                             {
+                                // @ts-ignore
                                 t("skills", {returnObjects: true}).map((skill, index) => {
                                     return <div key={index} className="flex flex-col flex-wrap">
                                         <div className="flex flex-wrap gap-x-4 gap-y-2 items-center mb-2 tablet:mb-3">
@@ -179,7 +198,8 @@ export default async function Page({params: {lng}}: PageProps) {
                         <SectionTitle>{t("languages-title")}</SectionTitle>
                         <div className="grid gap-9 grid-cols-2">
                             {
-                                t("languages", {returnObjects: true}).map((languages,index) => {
+                                // @ts-ignore
+                                t("languages", {returnObjects: true}).map((languages, index) => {
                                     return <div key={index} className="break-inside-avoid flex flex-col flex-wrap">
                                         <div className="flex flex-col gap-2 tablet:gap-3">
                                             <div className="flex flex-wrap gap-x-3 items-center">
@@ -198,6 +218,7 @@ export default async function Page({params: {lng}}: PageProps) {
                     </section>
                 </div>
             </div>
+            <ChangeLanguageLink lng={lng}/>
         </div>
     );
 }

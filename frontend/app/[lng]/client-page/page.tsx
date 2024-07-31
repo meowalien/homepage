@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTranslation } from "@/i18n/client";
-import { Footer } from "@/components/Footer/client";
+import { LanguageFlags } from "@/components/LanguageFlags/client";
 import { useState } from "react";
 
 type PageProps = { params: { lng: string } };
@@ -20,7 +20,7 @@ export default function Page({ params: { lng } }: PageProps) {
       <Link href={`/${lng}`}>
         <button type="button">{t("back-to-home")}</button>
       </Link>
-      <Footer lng={lng} />
+      <LanguageFlags lng={lng} />
     </>
   );
 }
