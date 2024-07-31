@@ -24,8 +24,8 @@ export default function RootLayout({
 
                                    }: Readonly<RootLayoutProps>) {
     return (
-        <html lang={lng} dir={dir(lng)}>
-        <body className={inter.className}>{children}</body>
+        <html lang={lng} dir={dir(lng)} className="h-full w-full">
+        <body className={`${inter.className} h-full w-full`}>{children}</body>
         </html>
     );
 }

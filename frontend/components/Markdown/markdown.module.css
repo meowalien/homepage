@@ -1,0 +1,153 @@
+/* Markdown.module.css */
+.markdown {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+    margin: 1em 0 0.5em;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.markdown h1 { font-size: 2em; }
+.markdown h2 { font-size: 1.75em; }
+.markdown h3 { font-size: 1.5em; }
+.markdown h4 { font-size: 1.25em; }
+.markdown h5 { font-size: 1em; }
+.markdown h6 { font-size: 0.875em; }
+
+.markdown p {
+    margin: 0 0 1em;
+}
+
+.markdown em {
+    font-style: italic;
+}
+
+.markdown strong {
+    font-weight: bold;
+}
+
+.markdown blockquote {
+    padding: 10px 20px;
+    margin: 0 0 1em;
+    border-left: 5px solid #ccc;
+    background: #f9f9f9;
+}
+
+.markdown ul {
+    list-style: disc inside;
+    margin: 0;
+    padding: 0 0 0 1.5em;
+}
+
+.markdown ol {
+    list-style: decimal inside;
+    margin: 0;
+    padding: 0 0 0 1.5em;
+}
+
+.markdown li {
+    margin: 0.5em 0;
+}
+
+.markdown code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    background: #f4f4f4;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.markdown pre {
+    background: #f4f4f4;
+    padding: 1em;
+    border-radius: 4px;
+    overflow: auto;
+}
+
+.markdown pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+.markdown a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+.markdown a:hover {
+    text-decoration: underline;
+}
+
+.markdown table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+}
+
+.markdown th,
+.markdown td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.markdown th {
+    background: #f4f4f4;
+    font-weight: bold;
+}
+
+.markdown hr {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 2em 0;
+}
+
+.markdown img {
+    max-width: 100%;
+    height: auto;
+}
+
+.markdown del {
+    text-decoration: line-through;
+}
+
+.markdown .task-list-item {
+    list-style: none;
+    padding-left: 1.5em;
+    position: relative;
+}
+
+.markdown .task-list-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.35em;
+    width: 0.75em;
+    height: 0.75em;
+    border: 2px solid #000;
+    border-radius: 0.2em;
+}
+
+.markdown .task-list-item input {
+    position: absolute;
+    left: 0;
+    top: 0.35em;
+    width: 0.75em;
+    height: 0.75em;
+    opacity: 0;
+}
+
+.markdown .task-list-item input:checked + label::before {
+    content: '\\2713';
+    color: #000;
+    font-size: 1em;
+    text-align: center;
+    line-height: 0.75em;
+}
