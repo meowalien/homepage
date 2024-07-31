@@ -42,10 +42,14 @@
       "skills": [
         "Golang",
         "Python",
+        "Java",
+        "Gorm",
         "GRPC",
         "RabbitMQ",
+        "BashScript",
         "RESTful API",
-        "WebSocket"
+        "WebSocket",
+        "Nats"
       ]
     },
     {
@@ -59,7 +63,8 @@
         "HTML / CSS / Javascript",
         "SCSS",
         "ReactJS",
-        "Next.js"
+        "Next.js",
+        "Figma"
       ]
     },
     {
@@ -85,7 +90,9 @@
       "level": "Expert",
       "skills": [
         "Jenkins",
-        "ArgoCD"
+        "ArgoCD",
+        "Gitlab-ci",
+        "Github Actions"
       ]
     },
     {
