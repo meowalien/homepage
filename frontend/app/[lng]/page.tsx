@@ -180,6 +180,7 @@ export default async function Page({params: {lng}}: PageProps) {
                                         </div>
                                         <div className="flex flex-wrap gap-x-2 gap-y-1 mb-2 tablet:mb-3">
                                             {
+                                                // @ts-ignore
                                                 skill.skills.map((tag, index) => {
                                                     return <div
                                                         key={index}
