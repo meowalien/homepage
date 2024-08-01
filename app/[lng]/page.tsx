@@ -4,6 +4,10 @@ import Image from "next/image";
 import MyMarkdown from "@/components/Markdown";
 import {LanguageFlags} from "@/components/LanguageFlags";
 import {ReactNode} from "react";
+import GithubCorner from "@/components/GitHubCorner";
+import PrintButton from "@/components/PrintButton";
+
+const projectURL = "https://github.com/meowalien/homepage"
 
 type PageProps = { params: { lng: string } };
 
@@ -23,7 +27,9 @@ const BasicInfoBar = async ({lng}: { lng: string }) => {
 
     return (
         <div className="relative break-inside-avoid break-after-avoid mb-6">
+            {/*<PrintButton/>*/}
             <div className="flex relative w-full min-h-[8rem] md:min-h-[10rem] bg-title-bar">
+                <GithubCorner url={projectURL} className="md:hidden print:hidden"/>
                 <div
                     className="absolute bottom-0 w-40 h-40 left-1/2 -translate-x-1/2 translate-y-1/2 md:left-[3.75rem] md:translate-x-0 print:left-[3.75rem] print:translate-x-0">
                     <Image src={avatarImage} alt="" className="rounded-full border-4 border-white"/>
@@ -33,7 +39,8 @@ const BasicInfoBar = async ({lng}: { lng: string }) => {
                 className="mt-[76px] mb-5 flex flex-col justify-start w-full items-center text-main-text md:mt-3 md:pl-[16.25rem] md:pt-[.75rem] md:pr-[3.75rem] md:flex-row md:justify-between md:items-end md:top-0 md:absolute md:text-white  print:mt-3 print:pl-[16.25rem] print:pt-[.75rem] print:pr-[3.75rem] print:flex-row print:justify-between print:items-end print:top-0 print:absolute">
                 <div className="flex flex-col gap-y-0 items-center print:translate-y-[4rem]">
                     <h1 className="text-[2.25rem] font-bold text-center tracking-[0.0235rem] leading-normal">{t("name")}</h1>
-                    <div className="text-lg font-bold text-center md:hidden print:block print:text-nowrap">{t("jobTitle")}</div>
+                    <div
+                        className="text-lg font-bold text-center md:hidden print:block print:text-nowrap">{t("jobTitle")}</div>
                 </div>
                 <div className="flex flex-col gap-y-2 items-center md:items-start print:items-start print:text-sm">
                     <div className="flex gap-x-2 items-center">
@@ -62,22 +69,39 @@ const BasicInfoBar = async ({lng}: { lng: string }) => {
                         <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg"
                              viewBox="0 0 20 20" className="shrink-0 w-6 h-6">
                             <path
-                                d="M11 15a.999.999 0 11-2 0 .999.999 0 112 0zm1.5-1.875v-8.25a.376.376 0 00-.375-.375h-4.25a.376.376 0 00-.375.375v8.25c0 .206.169.375.375.375h4.25a.376.376 0 00.375-.375zM15 3.5v13a1.5 1.5 0 01-1.5 1.5h-7A1.5 1.5 0 015 16.5v-13A1.5 1.5 0 016.5 2h7A1.5 1.5 0 0115 3.5zm-1.5 12.813V3.688a.188.188 0 00-.188-.188H6.689a.188.188 0 00-.188.188v12.624c0 .104.084.188.188.188h6.625a.188.188 0 00.187-.188z"
-                                fill="currentColor"></path>
-                        </svg>
-                        <div className="text-general font-normal">
-                            {t("phone")}
-                        </div>
-                    </div>
-                    <div className="flex gap-x-2 items-center">
-                        <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg"
-                             viewBox="0 0 20 20" className="shrink-0 w-6 h-6">
-                            <path
                                 d="M16.5 4h-13A1.5 1.5 0 002 5.5v9A1.5 1.5 0 003.5 16h13a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0016.5 4zm0 1.5v1.275c-.7.57-1.818 1.458-4.206 3.328-.526.414-1.569 1.409-2.294 1.397-.725.012-1.768-.983-2.294-1.397C5.318 8.233 4.2 7.346 3.5 6.775V5.5h13zm-13 9V8.7c.716.57 1.732 1.37 3.28 2.583.682.537 1.878 1.724 3.22 1.717 1.335.007 2.516-1.162 3.22-1.717A532.336 532.336 0 0016.5 8.7v5.8h-13z"
                                 fill="currentColor"></path>
                         </svg>
                         <div className="text-general font-normal">
                             {t("emailContact")}
+                        </div>
+                    </div>
+                    <div className="flex gap-x-2 items-center">
+                        <svg className="shrink-0 w-6 h-6"
+                             fill="none" width="20" height="20"
+                             xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 296.528 296.528">
+                            <g>
+                                <path fill="currentColor" d="M295.838,115.347l0.003-0.001l-0.092-0.76c-0.001-0.013-0.002-0.023-0.004-0.036c-0.001-0.011-0.002-0.021-0.004-0.032
+		l-0.344-2.858c-0.069-0.574-0.148-1.228-0.238-1.974l-0.072-0.594l-0.147,0.018c-3.617-20.571-13.553-40.093-28.942-56.762
+		c-15.317-16.589-35.217-29.687-57.548-37.878c-19.133-7.018-39.434-10.577-60.337-10.577c-28.22,0-55.627,6.637-79.257,19.193
+		C23.289,47.297-3.585,91.799,0.387,136.461c2.056,23.111,11.11,45.11,26.184,63.621c14.188,17.423,33.381,31.483,55.503,40.66
+		c13.602,5.642,27.051,8.301,41.291,11.116l1.667,0.33c3.921,0.776,4.975,1.842,5.247,2.264c0.503,0.784,0.24,2.329,0.038,3.18
+		c-0.186,0.785-0.378,1.568-0.57,2.352c-1.529,6.235-3.11,12.683-1.868,19.792c1.428,8.172,6.531,12.859,14.001,12.86
+		c0.001,0,0.001,0,0.002,0c8.035,0,17.18-5.39,23.231-8.956l0.808-0.475c14.436-8.478,28.036-18.041,38.271-25.425
+		c22.397-16.159,47.783-34.475,66.815-58.17C290.172,175.745,299.2,145.078,295.838,115.347z M92.343,160.561H66.761
+		c-3.866,0-7-3.134-7-7V99.865c0-3.866,3.134-7,7-7c3.866,0,7,3.134,7,7v46.696h18.581c3.866,0,7,3.134,7,7
+		C99.343,157.427,96.209,160.561,92.343,160.561z M119.03,153.371c0,3.866-3.134,7-7,7c-3.866,0-7-3.134-7-7V99.675
+		c0-3.866,3.134-7,7-7c3.866,0,7,3.134,7,7V153.371z M182.304,153.371c0,3.033-1.953,5.721-4.838,6.658
+		c-0.712,0.231-1.441,0.343-2.161,0.343c-2.199,0-4.323-1.039-5.666-2.888l-25.207-34.717v30.605c0,3.866-3.134,7-7,7
+		c-3.866,0-7-3.134-7-7v-52.16c0-3.033,1.953-5.721,4.838-6.658c2.886-0.936,6.045,0.09,7.827,2.545l25.207,34.717V99.675
+		c0-3.866,3.134-7,7-7c3.866,0,7,3.134,7,7V153.371z M233.311,159.269h-34.645c-3.866,0-7-3.134-7-7v-26.847V98.573
+		c0-3.866,3.134-7,7-7h33.57c3.866,0,7,3.134,7,7s-3.134,7-7,7h-26.57v12.849h21.562c3.866,0,7,3.134,7,7c0,3.866-3.134,7-7,7
+		h-21.562v12.847h27.645c3.866,0,7,3.134,7,7S237.177,159.269,233.311,159.269z"/>
+                            </g>
+                        </svg>
+                        <div className="text-general font-normal">
+                            {t("lineID")}
                         </div>
                     </div>
                 </div>
@@ -110,7 +134,7 @@ const FormatedMarkdown = ({markdown}: { markdown: string }) => {
     );
 }
 
-const ChangeLanguageLink = async ({lng,className}: { lng: string , className?:string }) => {
+const ChangeLanguageLink = async ({lng, className}: { lng: string, className?: string }) => {
     const {t} = await useTranslation(lng, "translation");
 
     return <div className={`mb-6 ${className}`}>
@@ -131,7 +155,9 @@ export default async function Page({params: {lng}}: PageProps) {
 
     return (
         <div className="bg-main-page-background w-full flex flex-col items-center">
-            <div className="md:mt-6 print:mt-6 mb-8 w-full max-w-[980px] border-[1px] border-middle-gray bg-white print:border-0">
+            <GithubCorner url={projectURL} className="hidden md:block print:hidden z-10"/>
+            <div
+                className="page:mt-6 mt-0 print:mt-6 mb-8 w-full max-w-[980px] border-0 page:border-[1px] border-middle-gray bg-white print:border-0">
                 <BasicInfoBar lng={lng}/>
                 <div className="flex flex-col gap-10 px-5 md:px-10 print:px-10">
                     <section className="px-5 py-4 flex-grow break-inside-avoid">
@@ -178,7 +204,8 @@ export default async function Page({params: {lng}}: PageProps) {
                                 // @ts-ignore
                                 t("skills", {returnObjects: true}).map((skill, index) => {
                                     return <div key={index} className="flex flex-col flex-wrap">
-                                        <div className="flex flex-wrap gap-x-4 gap-y-2 items-center mb-2 md:mb-3 print:mb-3">
+                                        <div
+                                            className="flex flex-wrap gap-x-4 gap-y-2 items-center mb-2 md:mb-3 print:mb-3">
                                             <div className="text-highlight font-bold">{skill.name}</div>
                                             <div className="text-emphasize"
                                                  data-cy="skill-proficiency">{skill.level}</div>

@@ -15,7 +15,7 @@ const config: Config = {
             // },
             screens: {
                 print: {raw: 'print'},
-                // 'tablet': '768px',
+                page: '980px',
                 // 'laptop': '1024px',
                 // 'desktop': '1280px',
             },
