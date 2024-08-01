@@ -13,6 +13,11 @@ const config: Config = {
             //     "gradient-conic":
             //         "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
             // },
+            screens: {
+                // 'tablet': '768px',
+                // 'laptop': '1024px',
+                // 'desktop': '1280px',
+            },
             colors: {
                 "accent-fuzzy-color": 'rgb(242 242 242)',
                 "main-page-background": 'rgb(251 251 251)',
@@ -34,7 +39,7 @@ const config: Config = {
                         lineHeight: '1.875rem',
                     }
                 ],
-                'emphasize':[
+                'emphasize': [
                     '1.125rem', {
                         lineHeight: '1.75rem',
                     }
