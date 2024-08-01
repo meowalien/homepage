@@ -14,6 +14,7 @@ const config: Config = {
             //         "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
             // },
             screens: {
+                print: {raw: 'print'},
                 // 'tablet': '768px',
                 // 'laptop': '1024px',
                 // 'desktop': '1280px',
@@ -24,7 +25,7 @@ const config: Config = {
                 "main-page-text": 'rgb(51 51 51)',
                 "title-bar": 'rgb(38 104 160 )',
                 "main-text": 'rgb(51 51 51)',
-                "outline-gray": 'rgb(204 204 204)',
+                "middle-gray": 'rgb(204 204 204)',
                 "darkest-gray": 'rgb(108 108 108)',
                 "middle-grey-2": 'rgb(170 178 190)',
             },

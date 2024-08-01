@@ -99,6 +99,7 @@
       "name": "Container & Cloud",
       "level": "Expert",
       "skills": [
+        "GCP",
         "Docker",
         "Kubernetes",
         "Helm",

@@ -99,7 +99,8 @@
         "Docker",
         "Kubernetes",
         "Helm",
-        "Traefik"
+        "Traefik",
+        "GCP"
       ]
     }
   ],

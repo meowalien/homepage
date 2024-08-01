@@ -9,8 +9,8 @@ type PageProps = { params: { lng: string } };
 
 const SectionTitle = ({children}: { children: ReactNode }) => {
     return (
-        <div className="break-after-avoid flex items-end pb-4 mb-8 border-b border-main-text ">
-            <h2 className="break-inside-avoid text-section-title font-bold text-main-text">
+        <div className="break-after-avoid break-inside-avoid flex items-end pb-4 mb-8 border-b border-main-text ">
+            <h2 className="text-section-title font-bold text-main-text">
                 {children}
             </h2>
             <div className="relative ml-auto"></div>
@@ -22,20 +22,20 @@ const BasicInfoBar = async ({lng}: { lng: string }) => {
     const {t} = await useTranslation(lng, "resume");
 
     return (
-        <div className="relative break-after-avoid break-inside-avoid mb-6">
+        <div className="relative break-inside-avoid break-after-avoid mb-6">
             <div className="flex relative w-full min-h-[8rem] md:min-h-[10rem] bg-title-bar">
                 <div
-                    className="absolute bottom-0 w-40 h-40 left-1/2 -translate-x-1/2 translate-y-1/2 md:left-[3.75rem] md:translate-x-0">
+                    className="absolute bottom-0 w-40 h-40 left-1/2 -translate-x-1/2 translate-y-1/2 md:left-[3.75rem] md:translate-x-0 print:left-[3.75rem] print:translate-x-0">
                     <Image src={avatarImage} alt="" className="rounded-full border-4 border-white"/>
                 </div>
             </div>
             <div
-                className="mt-[76px] md:mt-3 md:pl-[16.25rem] md:pt-[.75rem] md:pr-[3.75rem] mb-5 flex flex-col md:flex-row justify-start md:justify-between w-full items-center md:items-end text-main-text md:top-0 md:absolute md:text-white">
-                <div className="flex flex-col gap-y-0 items-center">
+                className="mt-[76px] mb-5 flex flex-col justify-start w-full items-center text-main-text md:mt-3 md:pl-[16.25rem] md:pt-[.75rem] md:pr-[3.75rem] md:flex-row md:justify-between md:items-end md:top-0 md:absolute md:text-white  print:mt-3 print:pl-[16.25rem] print:pt-[.75rem] print:pr-[3.75rem] print:flex-row print:justify-between print:items-end print:top-0 print:absolute">
+                <div className="flex flex-col gap-y-0 items-center print:translate-y-[4rem]">
                     <h1 className="text-[2.25rem] font-bold text-center tracking-[0.0235rem] leading-normal">{t("name")}</h1>
-                    <span className="text-lg font-bold text-center md:hidden">{t("jobTitle")}</span>
+                    <div className="text-lg font-bold text-center md:hidden print:block print:text-nowrap">{t("jobTitle")}</div>
                 </div>
-                <div className="flex flex-col gap-y-2 items-center md:items-start">
+                <div className="flex flex-col gap-y-2 items-center md:items-start print:items-start print:text-sm">
                     <div className="flex gap-x-2 items-center">
                         <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg"
                              viewBox="0 0 20 20" className="shrink-0 w-6 h-6">
@@ -83,9 +83,10 @@ const BasicInfoBar = async ({lng}: { lng: string }) => {
                 </div>
             </div>
             <div
-                className="hidden md:!flex flex-wrap gap-x-4 gap-y-2 items-center mt-4 ml-[16.25rem] print:ml-[12.5rem] min-h-[3rem] tablet:!flex print:max-w-md print:flex-wrap">
-                <div
-                    className="shrink-0 w-fit text-[1.5rem] font-medium leading-normal text-main-text">{t("jobTitle")}                </div>
+                className="hidden md:!flex print:!flex flex-wrap gap-x-4 gap-y-2 items-center mt-4 ml-[16.25rem] min-h-[3rem] tablet:!flex">
+                <div className="shrink-0 w-fit text-[1.5rem] font-medium leading-normal text-main-text print:hidden">
+                    {t("jobTitle")}
+                </div>
             </div>
         </div>
     );
@@ -94,10 +95,9 @@ const BasicInfoBar = async ({lng}: { lng: string }) => {
 
 const Pole = () => {
     return (
-        <div className="relative mt-3">
+        <div className="relative mt-3 print:hidden">
             <div className="w-3 h-3 bg-white rounded-full border border-main-text"></div>
-            <div
-                className="absolute top-3 left-1/2 w-px !bg-main-text h-[calc(100%_+_32px)]"></div>
+            <div className="absolute top-3 left-1/2 w-px !bg-main-text h-[calc(100%_+_32px)]"></div>
         </div>
     );
 }
@@ -105,15 +105,15 @@ const Pole = () => {
 const FormatedMarkdown = ({markdown}: { markdown: string }) => {
     return (
         <MyMarkdown
-            className="text-darkest-gray flex flex-col leading-1 [&_li]:list-disc [&_ul]:pl-6 [&_h3]:font-bold [&_ul]:mb-4 [&_p]:mb-4 leading-normal"
+            className="text-darkest-gray flex flex-col leading-1 [&_li]:list-disc [&_ul]:pl-6 [&_h3]:font-bold [&_ul]:mb-4 [&_p]:mb-4 leading-normal print:text-sm"
             markdown={markdown}/>
     );
 }
 
-const ChangeLanguageLink = async ({lng}: { lng: string }) => {
+const ChangeLanguageLink = async ({lng,className}: { lng: string , className?:string }) => {
     const {t} = await useTranslation(lng, "translation");
 
-    return <div className="mb-6">
+    return <div className={`mb-6 ${className}`}>
         {t("change-language")}
         <LanguageFlags lng={lng}>
             {(tag, index) => {
@@ -131,9 +131,9 @@ export default async function Page({params: {lng}}: PageProps) {
 
     return (
         <div className="bg-main-page-background w-full flex flex-col items-center">
-            <div className="md:mt-6 mb-8 w-full max-w-[980px] border-[1px] border-outline-gray bg-white">
+            <div className="md:mt-6 print:mt-6 mb-8 w-full max-w-[980px] border-[1px] border-middle-gray bg-white print:border-0">
                 <BasicInfoBar lng={lng}/>
-                <div className="flex flex-col gap-10 px-5 md:px-10">
+                <div className="flex flex-col gap-10 px-5 md:px-10 print:px-10">
                     <section className="px-5 py-4 flex-grow break-inside-avoid">
                         <SectionTitle>{t("summary")}</SectionTitle>
                         <FormatedMarkdown markdown={t("summary_content")}/>
@@ -178,12 +178,12 @@ export default async function Page({params: {lng}}: PageProps) {
                                 // @ts-ignore
                                 t("skills", {returnObjects: true}).map((skill, index) => {
                                     return <div key={index} className="flex flex-col flex-wrap">
-                                        <div className="flex flex-wrap gap-x-4 gap-y-2 items-center mb-2 md:mb-3">
+                                        <div className="flex flex-wrap gap-x-4 gap-y-2 items-center mb-2 md:mb-3 print:mb-3">
                                             <div className="text-highlight font-bold">{skill.name}</div>
                                             <div className="text-emphasize"
                                                  data-cy="skill-proficiency">{skill.level}</div>
                                         </div>
-                                        <div className="flex flex-wrap gap-x-2 gap-y-1 mb-2 md:mb-3">
+                                        <div className="flex flex-wrap gap-x-2 gap-y-1 mb-2 md:mb-3 print:mb-3">
                                             {
                                                 // @ts-ignore
                                                 skill.skills.map((tag, index) => {
@@ -206,8 +206,8 @@ export default async function Page({params: {lng}}: PageProps) {
                             {
                                 // @ts-ignore
                                 t("languages", {returnObjects: true}).map((languages, index) => {
-                                    return <div key={index} className="break-inside-avoid flex flex-col flex-wrap">
-                                        <div className="flex flex-col gap-2 md:gap-3">
+                                    return <div key={index} className=" flex flex-col flex-wrap">
+                                        <div className="flex flex-col gap-2 md:gap-3 print:gap-3">
                                             <div className="flex flex-wrap gap-x-3 items-center">
                                                 <div className="text-highlight font-bold"
                                                      data-cy="language-name">{languages.name}
@@ -224,7 +224,7 @@ export default async function Page({params: {lng}}: PageProps) {
                     </section>
                 </div>
             </div>
-            <ChangeLanguageLink lng={lng}/>
+            <ChangeLanguageLink lng={lng} className="print:hidden"/>
         </div>
     );
 }
