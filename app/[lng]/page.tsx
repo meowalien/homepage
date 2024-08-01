@@ -5,7 +5,6 @@ import MyMarkdown from "@/components/Markdown";
 import {LanguageFlags} from "@/components/LanguageFlags";
 import {ReactNode} from "react";
 import GithubCorner from "@/components/GitHubCorner";
-import PrintButton from "@/components/PrintButton";
 
 const projectURL = "https://github.com/meowalien/homepage"
 
@@ -27,7 +26,6 @@ const BasicInfoBar = async ({lng}: { lng: string }) => {
 
     return (
         <div className="relative break-inside-avoid break-after-avoid mb-6">
-            {/*<PrintButton/>*/}
             <div className="flex relative w-full min-h-[8rem] md:min-h-[10rem] bg-title-bar">
                 <GithubCorner url={projectURL} className="md:hidden print:hidden"/>
                 <div
