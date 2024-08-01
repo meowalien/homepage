@@ -83,10 +83,8 @@ const BasicInfoBar = async ({lng}: { lng: string }) => {
             </div>
             <div
                 className="hidden md:!flex flex-wrap gap-x-4 gap-y-2 items-center mt-4 ml-[16.25rem] print:ml-[12.5rem] min-h-[3rem] tablet:!flex print:max-w-md print:flex-wrap">
-                <div className="shrink-0 w-fit text-[1.5rem] font-medium leading-normal text-main-text">Full-Stack
-                    Engineer
-                </div>
-                <div className="w-fit text-general font-medium text-darkest-gray">Digital River</div>
+                <div
+                    className="shrink-0 w-fit text-[1.5rem] font-medium leading-normal text-main-text">{t("jobTitle")}                </div>
             </div>
         </div>
     );
