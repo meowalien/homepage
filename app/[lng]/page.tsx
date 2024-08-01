@@ -3,10 +3,11 @@ import avatarImage from "@/public/Avatar 600x600.jpg";
 import Image from "next/image";
 import MyMarkdown from "@/components/Markdown";
 import {LanguageFlags} from "@/components/LanguageFlags";
+import {ReactNode} from "react";
 
 type PageProps = { params: { lng: string } };
 
-const SectionTitle = ({children}: { children: React.ReactNode }) => {
+const SectionTitle = ({children}: { children: ReactNode }) => {
     return (
         <div className="break-after-avoid flex items-end pb-4 mb-8 border-b border-main-text ">
             <h2 className="break-inside-avoid text-section-title font-bold text-main-text">
