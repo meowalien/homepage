@@ -19,6 +19,7 @@
     "react-dom": "^18",
     "react-i18next": "^15.0.0",
     "react-markdown": "^9.0.1",
+    "react-qr-code": "^2.0.15",
     "react-world-flags": "^1.6.0",
     "remark-gfm": "^4.0.0",
     "sharp": "^0.33.4"
