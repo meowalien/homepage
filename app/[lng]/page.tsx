@@ -107,17 +107,22 @@ const BasicInfoBar = async ({lng}: { lng: string }) => {
     const {t} = await useTranslation(lng, "resume");
 
     return (
-        <div className="relative break-inside-avoid break-after-avoid mb-6">
-            <div className="flex relative w-full min-h-[8rem] md:min-h-[10rem] bg-title-bar">
-                <GithubCorner url={projectURL} className=" print:hidden"/>
+        <div className="print:mt-8 relative break-inside-avoid break-after-avoid mb-6 print:flex print:flex-row print:justify-between print:items-center print:px-[3.75rem]">
+            <div className="flex print:flex-col print:items-center relative w-full print:w-auto min-h-[8rem] md:min-h-[10rem] bg-title-bar print:bg-transparent ">
+                <GithubCorner url={projectURL} className=" print:hidden  z-10"/>
                 <div
-                    className="absolute bottom-0 w-40 h-40 left-1/2 -translate-x-1/2 translate-y-1/2 md:left-[3.75rem] md:translate-x-0 print:left-[3.75rem] print:translate-x-0">
-                    <Image src={avatarImage} alt="" className="rounded-full border-4 border-white"/>
+                    className="absolute print:relative print:flex bottom-0 print:bottom-auto w-40 h-40 print:left-auto left-1/2 -translate-x-1/2 print:-translate-x-0 translate-y-1/2 print:translate-y-0 md:left-[3.75rem] md:translate-x-0 ">
+                    <Image src={avatarImage} alt="" className="rounded-full border-white"/>
+                </div>
+                <div className="hidden print:flex flex-col gap-y-0 items-center ">
+                    <h1 className="text-[2.25rem] font-bold text-center tracking-[0.0235rem] leading-normal">{t("name")}</h1>
+                    <div
+                        className="text-lg font-bold text-center md:hidden print:block print:text-nowrap">{t("jobTitle")}</div>
                 </div>
             </div>
             <div
-                className="mt-[76px] mb-5 flex flex-col justify-start w-full items-center text-main-text md:mt-3 md:pl-[16.25rem] md:pt-[.75rem] md:pr-[3.75rem] md:flex-row md:justify-between md:items-end md:top-0 md:absolute md:text-white  print:mt-3 print:pl-[14.25rem] print:pt-[.75rem] print:pr-[3.75rem] print:flex-row print:justify-between print:items-end print:top-0 print:absolute">
-                <div className="flex flex-col gap-y-0 items-center print:translate-y-[4rem]">
+                className="mt-[76px] print:mt-auto mb-5 print:mb-auto flex flex-col print:flex-row justify-start print:justify-center w-full print:w-auto items-center text-main-text md:mt-3 md:pl-[16.25rem] md:pt-[.75rem] md:pr-[3.75rem] print:pr-0 md:flex-row md:justify-between md:items-end md:top-0 md:absolute md:text-white  print:pl-0 print:pt-0    ">
+                <div className="flex flex-col gap-y-0 items-center print:items-start print:hidden">
                     <h1 className="text-[2.25rem] font-bold text-center tracking-[0.0235rem] leading-normal">{t("name")}</h1>
                     <div
                         className="text-lg font-bold text-center md:hidden print:block print:text-nowrap">{t("jobTitle")}</div>
@@ -125,8 +130,8 @@ const BasicInfoBar = async ({lng}: { lng: string }) => {
                 <BasicInfo lng={lng}/>
             </div>
             <div
-                className="hidden md:!flex print:!flex flex-wrap gap-x-4 gap-y-2 items-center mt-4 ml-[16.25rem] min-h-[3rem] tablet:!flex">
-                <div className="shrink-0 w-fit text-[1.5rem] font-medium leading-normal text-main-text print:hidden">
+                className="hidden md:!flex  flex-wrap gap-x-4 gap-y-2 items-center mt-4 ml-[16.25rem] min-h-[3rem] tablet:!flex print:hidden">
+                <div className="shrink-0 w-fit text-[1.5rem] font-medium leading-normal text-main-text">
                     {t("jobTitle")}
                 </div>
             </div>
@@ -173,7 +178,7 @@ export default async function Page({params: {lng}}: PageProps) {
 
     return (
         <div className="bg-main-page-background w-full flex flex-col items-center">
-            <GithubCorner url={projectURL} className="hidden md:block print:hidden z-10"/>
+            {/*<GithubCorner url={projectURL} className="hidden md:block print:hidden z-10"/>*/}
             <div
                 className="page:mt-6 mt-0 print:mt-6 mb-8 w-full max-w-[980px] border-0 page:border-[1px] border-middle-gray bg-white print:border-0">
                 <BasicInfoBar lng={lng}/>
