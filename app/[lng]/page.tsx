@@ -6,7 +6,7 @@ import {LanguageFlags} from "@/components/LanguageFlags";
 import {ReactNode} from "react";
 import GithubCorner from "@/components/GitHubCorner";
 
-const projectURL = "https://github.com/meowalien/homepage"
+const projectURL = "https://github.com/meowalien/RabbitGather-index"
 
 type PageProps = { params: { lng: string } };
 
