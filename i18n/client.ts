@@ -16,8 +16,7 @@ i18next
     .use(LanguageDetector)
     .use(
         resourcesToBackend(
-            // (lng: string, ns: string) => import(`./locales/${lng}/${ns}.json`)
-            (lng: string, ns: string) => fetch(`${process.env.NEXT_PUBLIC_I18N_ENDPOINT}${lng}/${ns}`).then(response => response.json())
+            (lng: string, ns: string) => fetch(`${process.env.NEXT_PUBLIC_I18N_ENDPOINT}/${lng}/${ns}`).then(response => response.json())
         )
     )
     .init({

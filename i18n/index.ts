@@ -9,8 +9,7 @@ const initI18next = async (lng: string, ns: string) => {
         .use(initReactI18next)
         .use(
             resourcesToBackend(
-                // (lng: string, ns: string) => import(`./locales/${lng}/${ns}.json`)
-                (lng: string, ns: string) => fetch(`${process.env.NEXT_PUBLIC_I18N_ENDPOINT}${lng}/${ns}`).then(response => response.json())
+                (lng: string, ns: string) => fetch(`${process.env.NEXT_PUBLIC_I18N_ENDPOINT}/${lng}/${ns}`).then(response => response.json())
             )
         )
         .init(getOptions(lng, ns));
