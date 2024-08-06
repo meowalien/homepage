@@ -4,6 +4,7 @@ import {ReactElement} from "react";
 import {dir} from "i18next";
 import {languages} from "@/i18n/settings";
 import "./globals.css";
+import {GoogleOAuthProvider} from '@react-oauth/google';
 
 type RootLayoutProps = { children: ReactElement; params: { lng: string } };
 
@@ -25,7 +26,7 @@ export default function RootLayout({
                                    }: Readonly<RootLayoutProps>) {
     return (
         <html lang={lng} dir={dir(lng)} className="h-full w-full">
-        <body className={`${inter.className} h-full w-full`}>{children}</body>
+            <body className={`${inter.className} h-full w-full`}>{children}</body>
         </html>
     );
 }
