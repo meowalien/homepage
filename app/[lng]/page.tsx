@@ -175,7 +175,7 @@ const ChangeLanguageLink = async ({lng, className}: { lng: string, className?: s
 
 export default async function Page({params: {lng}}: PageProps) {
     const {t} = await useTranslation(lng, "resume");
-    console.log("PRIVATE_ENV: ",process.env.PRIVATE_ENV)
+    // console.log("PRIVATE_ENV: ",process.env.PRIVATE_ENV)
     return (
         <div className="bg-main-page-background w-full flex flex-col items-center">
             {/*<GithubCorner url={projectURL} className="hidden md:block print:hidden z-10"/>*/}
