@@ -5,6 +5,9 @@ import axios from "axios";
 
 type PageProps = { params: { lng: string } };
 export default function Page({params: {lng}}: PageProps) {
+    console.log("process.env.NEXT_PUBLIC_AUTHORIZATION_ENDPOINT", process.env.NEXT_PUBLIC_AUTHORIZATION_ENDPOINT);
+    console.log("process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID" , process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID);
+
     const handleLogin = (credentialResponse: CredentialResponse) => {
         console.log('Login Success: ', credentialResponse);
         axios
