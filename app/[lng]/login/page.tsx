@@ -6,12 +6,12 @@ import axios from "axios";
 type PageProps = { params: { lng: string } };
 export default function Page({params: {lng}}: PageProps) {
     console.log("process.env.NEXT_PUBLIC_AUTHORIZATION_ENDPOINT", process.env.NEXT_PUBLIC_AUTHORIZATION_ENDPOINT);
-    console.log("process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID" , process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID);
+    console.log("process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID", process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID);
 
     const handleLogin = (credentialResponse: CredentialResponse) => {
         console.log('Login Success: ', credentialResponse);
         axios
-            .post(`${process.env.NEXT_PUBLIC_AUTHORIZATION_ENDPOINT}/oauth/google`, credentialResponse, {
+            .post(`${process.env.NEXT_PUBLIC_AUTHORIZATION_ENDPOINT}/login/google`, credentialResponse, {
                 headers: {
                     Accept: 'application/json'
                 },
@@ -34,7 +34,7 @@ export default function Page({params: {lng}}: PageProps) {
                 <br/>
 
                 <div>
-                    {/*Token: {token}<br/>*/}
+
                     <a href={`${process.env.NEXT_PUBLIC_I18N_ENDPOINT}/en/client-page`}>aaaaaaaaa</a><br/>
                     <button
                         onClick={() => {
@@ -51,7 +51,6 @@ export default function Page({params: {lng}}: PageProps) {
                             });
 
                             const requestOptions: RequestInit = {
-                                mode: "cors",
                                 credentials: 'include',
                                 method: "POST",
                                 headers: myHeaders,
@@ -66,9 +65,16 @@ export default function Page({params: {lng}}: PageProps) {
                     >
                         Send Post Request
                     </button>
-                    {/*<button onClick={logOut}>Log out</button>*/}
+                    <br/>
+                    <button onClick={() => {
+                        fetch(`${process.env.NEXT_PUBLIC_AUTHORIZATION_ENDPOINT}/logout`, {
+                            // mode: "cors",
+                            method: 'POST',
+                            credentials: 'include',
+                        })
+                    }}>Log out
+                    </button>
                 </div>
-
             </div>
         </GoogleOAuthProvider>
     );

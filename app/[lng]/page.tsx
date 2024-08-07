@@ -2,13 +2,12 @@ import {useTranslation} from "@/i18n";
 import avatarImage from "@/public/Avatar 600x600.jpg";
 import Image from "next/image";
 import MyMarkdown from "@/components/Markdown";
-import {LanguageFlags} from "@/components/LanguageFlags";
 import {ReactNode} from "react";
 import GithubCorner from "@/components/GitHubCorner";
+import  PageContainer ,{PageProps} from "@/components/PageContainer";
 
 const projectURL = "https://github.com/meowalien/RabbitGather-index"
 
-type PageProps = { params: { lng: string } };
 
 const SectionTitle = ({children}: { children: ReactNode }) => {
     return (
@@ -107,8 +106,10 @@ const BasicInfoBar = async ({lng}: { lng: string }) => {
     const {t} = await useTranslation(lng, "resume");
 
     return (
-        <div className="print:mt-8 relative break-inside-avoid break-after-avoid mb-6 print:flex print:flex-row print:justify-between print:items-center print:px-[3.75rem]">
-            <div className="flex print:flex-col print:items-center relative w-full print:w-auto min-h-[8rem] md:min-h-[10rem] bg-title-bar print:bg-transparent ">
+        <div
+            className="print:mt-8 relative break-inside-avoid break-after-avoid mb-6 print:flex print:flex-row print:justify-between print:items-center print:px-[3.75rem]">
+            <div
+                className="flex print:flex-col print:items-center relative w-full print:w-auto min-h-[8rem] md:min-h-[10rem] bg-title-bar print:bg-transparent ">
                 <GithubCorner url={projectURL} className=" print:hidden  z-10"/>
                 <div
                     className="absolute print:relative print:flex bottom-0 print:bottom-auto w-40 h-40 print:left-auto left-1/2 -translate-x-1/2 print:-translate-x-0 translate-y-1/2 print:translate-y-0 md:left-[3.75rem] md:translate-x-0 ">
@@ -157,124 +158,102 @@ const FormatedMarkdown = ({markdown}: { markdown: string }) => {
     );
 }
 
-const ChangeLanguageLink = async ({lng, className}: { lng: string, className?: string }) => {
-    const {t} = await useTranslation(lng, "translation");
-
-    return <div className={`mb-6 ${className}`}>
-        {t("change-language")}
-        <LanguageFlags lng={lng}>
-            {(tag, index) => {
-                return <span>
-                    {index > 0 && t("change-language-or")}
-                    {tag}
-                    </span>
-            }}
-        </LanguageFlags>
-    </div>
-}
-
 export default async function Page({params: {lng}}: PageProps) {
     const {t} = await useTranslation(lng, "resume");
-    // console.log("PRIVATE_ENV: ",process.env.PRIVATE_ENV)
     return (
-        <div className="bg-main-page-background w-full flex flex-col items-center">
-            {/*<GithubCorner url={projectURL} className="hidden md:block print:hidden z-10"/>*/}
-            <div
-                className="page:mt-6 mt-0 print:mt-6 mb-8 w-full max-w-[980px] border-0 page:border-[1px] border-middle-gray bg-white print:border-0">
-                <BasicInfoBar lng={lng}/>
-                <div className="flex flex-col gap-10 px-5 md:px-10 print:px-10">
-                    <section className="px-5 py-4 flex-grow break-inside-avoid">
-                        <SectionTitle>{t("summary")}</SectionTitle>
-                        <FormatedMarkdown markdown={t("summary_content")}/>
-                    </section>
-                    <section className=" flex-grow overflow-hidden">
-                        <SectionTitle>{t("job_history-title")}</SectionTitle>
-                        <div className="flex flex-col gap-8">
-                            {
-                                // @ts-ignore
-                                t("job_history", {returnObjects: true}).map((job, index) => {
-                                    return <section className="flex" key={index}>
+        <PageContainer params={{lng}}>
+            <BasicInfoBar lng={lng}/>
+            <div className="flex flex-col gap-10 px-5 md:px-10 print:px-10">
+                <section className="px-5 py-4 flex-grow break-inside-avoid">
+                    <SectionTitle>{t("summary")}</SectionTitle>
+                    <FormatedMarkdown markdown={t("summary_content")}/>
+                </section>
+                <section className=" flex-grow overflow-hidden">
+                    <SectionTitle>{t("job_history-title")}</SectionTitle>
+                    <div className="flex flex-col gap-8">
+                        {
+                            // @ts-ignore
+                            t("job_history", {returnObjects: true}).map((job, index) => {
+                                return <section className="flex" key={index}>
+                                    <div
+                                        className="hidden md:block text-right shrink-0 mt-1.5 mr-4 text-middle-grey-2 w-[180px]">
+                                        {job.time}
+                                    </div>
+                                    <Pole/>
+                                    <div className="grow ml-6">
                                         <div
-                                            className="hidden md:block text-right shrink-0 mt-1.5 mr-4 text-middle-grey-2 w-[180px]">
+                                            className="md:hidden shrink-0 mt-1.5 mr-4  text-middle-grey-2">
                                             {job.time}
                                         </div>
-                                        <Pole/>
-                                        <div className="grow ml-6">
-                                            <div
-                                                className="md:hidden shrink-0 mt-1.5 mr-4  text-middle-grey-2">
-                                                {job.time}
-                                            </div>
-                                            <div
-                                                className="flex flex-col md:flex-row flex-wrap gap-y-0.5 justify-between items-start mb-3 font-bold text-main-text">
-                                                <div className="text-highlight" data-cy="experience-title">
-                                                    {job.job_title}
-                                                </div>
-                                                <div>
-                                                    {job.company}
-                                                </div>
-                                            </div>
-                                            <FormatedMarkdown markdown={job.content}/>
-                                        </div>
-                                    </section>
-                                })
-                            }
-                        </div>
-                    </section>
-                    <section className="px-5 py-4 flex-grow">
-                        <SectionTitle>{t("skills-title")}</SectionTitle>
-                        <div className="grid grid-cols-1 gap-6">
-                            {
-                                // @ts-ignore
-                                t("skills", {returnObjects: true}).map((skill, index) => {
-                                    return <div key={index} className="flex flex-col flex-wrap">
                                         <div
-                                            className="flex flex-wrap gap-x-4 gap-y-2 items-center mb-2 md:mb-3 print:mb-3">
-                                            <div className="text-highlight font-bold">{skill.name}</div>
-                                            <div className="text-emphasize"
-                                                 data-cy="skill-proficiency">{skill.level}</div>
+                                            className="flex flex-col md:flex-row flex-wrap gap-y-0.5 justify-between items-start mb-3 font-bold text-main-text">
+                                            <div className="text-highlight" data-cy="experience-title">
+                                                {job.job_title}
+                                            </div>
+                                            <div>
+                                                {job.company}
+                                            </div>
                                         </div>
-                                        <div className="flex flex-wrap gap-x-2 gap-y-1 mb-2 md:mb-3 print:mb-3">
-                                            {
-                                                // @ts-ignore
-                                                skill.skills.map((tag, index) => {
-                                                    return <div
-                                                        key={index}
-                                                        className="inline-flex items-center whitespace-nowrap rounded-sm cursor-pointer text-darkest-gray bg-accent-fuzzy-color py-px px-2 text-sub font-normal"
-                                                    >{tag}
-                                                    </div>
-                                                })
-                                            }
-                                        </div>
+                                        <FormatedMarkdown markdown={job.content}/>
                                     </div>
-                                })
-                            }
-                        </div>
-                    </section>
-                    <section className="px-5 py-4 flex-grow">
-                        <SectionTitle>{t("languages-title")}</SectionTitle>
-                        <div className="grid gap-9 grid-cols-2">
-                            {
-                                // @ts-ignore
-                                t("languages", {returnObjects: true}).map((languages, index) => {
-                                    return <div key={index} className=" flex flex-col flex-wrap">
-                                        <div className="flex flex-col gap-2 md:gap-3 print:gap-3">
-                                            <div className="flex flex-wrap gap-x-3 items-center">
-                                                <div className="text-highlight font-bold"
-                                                     data-cy="language-name">{languages.name}
+                                </section>
+                            })
+                        }
+                    </div>
+                </section>
+                <section className="px-5 py-4 flex-grow">
+                    <SectionTitle>{t("skills-title")}</SectionTitle>
+                    <div className="grid grid-cols-1 gap-6">
+                        {
+                            // @ts-ignore
+                            t("skills", {returnObjects: true}).map((skill, index) => {
+                                return <div key={index} className="flex flex-col flex-wrap">
+                                    <div
+                                        className="flex flex-wrap gap-x-4 gap-y-2 items-center mb-2 md:mb-3 print:mb-3">
+                                        <div className="text-highlight font-bold">{skill.name}</div>
+                                        <div className="text-emphasize"
+                                             data-cy="skill-proficiency">{skill.level}</div>
+                                    </div>
+                                    <div className="flex flex-wrap gap-x-2 gap-y-1 mb-2 md:mb-3 print:mb-3">
+                                        {
+                                            // @ts-ignore
+                                            skill.skills.map((tag, index) => {
+                                                return <div
+                                                    key={index}
+                                                    className="inline-flex items-center whitespace-nowrap rounded-sm cursor-pointer text-darkest-gray bg-accent-fuzzy-color py-px px-2 text-sub font-normal"
+                                                >{tag}
                                                 </div>
-                                                <div className="text-emphasize" data-cy="language-degree">
-                                                    {languages.level}
-                                                </div>
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            })
+                        }
+                    </div>
+                </section>
+                <section className="px-5 py-4 flex-grow">
+                    <SectionTitle>{t("languages-title")}</SectionTitle>
+                    <div className="grid gap-9 grid-cols-2">
+                        {
+                            // @ts-ignore
+                            t("languages", {returnObjects: true}).map((languages, index) => {
+                                return <div key={index} className=" flex flex-col flex-wrap">
+                                    <div className="flex flex-col gap-2 md:gap-3 print:gap-3">
+                                        <div className="flex flex-wrap gap-x-3 items-center">
+                                            <div className="text-highlight font-bold"
+                                                 data-cy="language-name">{languages.name}
+                                            </div>
+                                            <div className="text-emphasize" data-cy="language-degree">
+                                                {languages.level}
                                             </div>
                                         </div>
                                     </div>
-                                })
-                            }
-                        </div>
-                    </section>
-                </div>
+                                </div>
+                            })
+                        }
+                    </div>
+                </section>
             </div>
-            <ChangeLanguageLink lng={lng} className="print:hidden"/>
-        </div>
+        </PageContainer>
     );
 }
