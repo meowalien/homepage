@@ -1,10 +1,11 @@
 import {useTranslation} from "@/i18n";
 import avatarImage from "@/public/Avatar 600x600.jpg";
 import Image from "next/image";
-import MyMarkdown from "@/components/Markdown";
+import MyMarkdown from "@/components/MyMarkdown";
 import {ReactNode} from "react";
 import GithubCorner from "@/components/GitHubCorner";
-import  PageContainer ,{PageProps} from "@/components/PageContainer";
+import PageContainer, {PageProps} from "@/components/PageContainer";
+import GrayBackground from "@/components/GrayBackground";
 
 const projectURL = "https://github.com/meowalien/RabbitGather-index"
 
@@ -150,110 +151,104 @@ const Pole = () => {
     );
 }
 
-const FormatedMarkdown = ({markdown}: { markdown: string }) => {
-    return (
-        <MyMarkdown
-            className="text-darkest-gray flex flex-col leading-1 [&_li]:list-disc [&_ul]:pl-6 [&_h3]:font-bold [&_ul]:mb-4 [&_p]:mb-4 leading-normal print:text-sm"
-            markdown={markdown}/>
-    );
-}
-
 export default async function Page({params: {lng}}: PageProps) {
     const {t} = await useTranslation(lng, "resume");
     return (
-        <PageContainer params={{lng}}>
-            <BasicInfoBar lng={lng}/>
-            <div className="flex flex-col gap-10 px-5 md:px-10 print:px-10">
-                <section className="px-5 py-4 flex-grow break-inside-avoid">
-                    <SectionTitle>{t("summary")}</SectionTitle>
-                    <FormatedMarkdown markdown={t("summary_content")}/>
-                </section>
-                <section className=" flex-grow overflow-hidden">
-                    <SectionTitle>{t("job_history-title")}</SectionTitle>
-                    <div className="flex flex-col gap-8">
-                        {
-                            // @ts-ignore
-                            t("job_history", {returnObjects: true}).map((job, index) => {
-                                return <section className="flex" key={index}>
-                                    <div
-                                        className="hidden md:block text-right shrink-0 mt-1.5 mr-4 text-middle-grey-2 w-[180px]">
-                                        {job.time}
-                                    </div>
-                                    <Pole/>
-                                    <div className="grow ml-6">
+        <GrayBackground>
+            <PageContainer params={{lng}}>
+                <BasicInfoBar lng={lng}/>
+                <div className="flex flex-col gap-10 px-5 pb-10 md:px-10 print:px-10">
+                    <section className="px-5 py-4 flex-grow break-inside-avoid">
+                        <SectionTitle>{t("summary")}</SectionTitle>
+                        <MyMarkdown markdown={t("summary_content")}/>
+                    </section>
+                    <section className=" flex-grow overflow-hidden">
+                        <SectionTitle>{t("job_history-title")}</SectionTitle>
+                        <div className="flex flex-col gap-8">
+                            {
+                                // @ts-ignore
+                                t("job_history", {returnObjects: true}).map((job, index) => {
+                                    return <section className="flex" key={index}>
                                         <div
-                                            className="md:hidden shrink-0 mt-1.5 mr-4  text-middle-grey-2">
+                                            className="hidden md:block text-right shrink-0 mt-1.5 mr-4 text-middle-grey-2 w-[180px]">
                                             {job.time}
                                         </div>
-                                        <div
-                                            className="flex flex-col md:flex-row flex-wrap gap-y-0.5 justify-between items-start mb-3 font-bold text-main-text">
-                                            <div className="text-highlight" data-cy="experience-title">
-                                                {job.job_title}
+                                        <Pole/>
+                                        <div className="grow ml-6">
+                                            <div
+                                                className="md:hidden shrink-0 mt-1.5 mr-4  text-middle-grey-2">
+                                                {job.time}
                                             </div>
-                                            <div>
-                                                {job.company}
-                                            </div>
-                                        </div>
-                                        <FormatedMarkdown markdown={job.content}/>
-                                    </div>
-                                </section>
-                            })
-                        }
-                    </div>
-                </section>
-                <section className="px-5 py-4 flex-grow">
-                    <SectionTitle>{t("skills-title")}</SectionTitle>
-                    <div className="grid grid-cols-1 gap-6">
-                        {
-                            // @ts-ignore
-                            t("skills", {returnObjects: true}).map((skill, index) => {
-                                return <div key={index} className="flex flex-col flex-wrap">
-                                    <div
-                                        className="flex flex-wrap gap-x-4 gap-y-2 items-center mb-2 md:mb-3 print:mb-3">
-                                        <div className="text-highlight font-bold">{skill.name}</div>
-                                        <div className="text-emphasize"
-                                             data-cy="skill-proficiency">{skill.level}</div>
-                                    </div>
-                                    <div className="flex flex-wrap gap-x-2 gap-y-1 mb-2 md:mb-3 print:mb-3">
-                                        {
-                                            // @ts-ignore
-                                            skill.skills.map((tag, index) => {
-                                                return <div
-                                                    key={index}
-                                                    className="inline-flex items-center whitespace-nowrap rounded-sm cursor-pointer text-darkest-gray bg-accent-fuzzy-color py-px px-2 text-sub font-normal"
-                                                >{tag}
+                                            <div
+                                                className="flex flex-col md:flex-row flex-wrap gap-y-0.5 justify-between items-start mb-3 font-bold text-main-text">
+                                                <div className="text-highlight" data-cy="experience-title">
+                                                    {job.job_title}
                                                 </div>
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                            })
-                        }
-                    </div>
-                </section>
-                <section className="px-5 py-4 flex-grow">
-                    <SectionTitle>{t("languages-title")}</SectionTitle>
-                    <div className="grid gap-9 grid-cols-2">
-                        {
-                            // @ts-ignore
-                            t("languages", {returnObjects: true}).map((languages, index) => {
-                                return <div key={index} className=" flex flex-col flex-wrap">
-                                    <div className="flex flex-col gap-2 md:gap-3 print:gap-3">
-                                        <div className="flex flex-wrap gap-x-3 items-center">
-                                            <div className="text-highlight font-bold"
-                                                 data-cy="language-name">{languages.name}
+                                                <div>
+                                                    {job.company}
+                                                </div>
                                             </div>
-                                            <div className="text-emphasize" data-cy="language-degree">
-                                                {languages.level}
+                                            <MyMarkdown markdown={job.content}/>
+                                        </div>
+                                    </section>
+                                })
+                            }
+                        </div>
+                    </section>
+                    <section className="px-5 py-4 flex-grow">
+                        <SectionTitle>{t("skills-title")}</SectionTitle>
+                        <div className="grid grid-cols-1 gap-6">
+                            {
+                                // @ts-ignore
+                                t("skills", {returnObjects: true}).map((skill, index) => {
+                                    return <div key={index} className="flex flex-col flex-wrap">
+                                        <div
+                                            className="flex flex-wrap gap-x-4 gap-y-2 items-center mb-2 md:mb-3 print:mb-3">
+                                            <div className="text-highlight font-bold">{skill.name}</div>
+                                            <div className="text-emphasize"
+                                                 data-cy="skill-proficiency">{skill.level}</div>
+                                        </div>
+                                        <div className="flex flex-wrap gap-x-2 gap-y-1 mb-2 md:mb-3 print:mb-3">
+                                            {
+                                                // @ts-ignore
+                                                skill.skills.map((tag, index) => {
+                                                    return <div
+                                                        key={index}
+                                                        className="inline-flex items-center whitespace-nowrap rounded-sm cursor-pointer text-darkest-gray bg-accent-fuzzy-color py-px px-2 text-sub font-normal"
+                                                    >{tag}
+                                                    </div>
+                                                })
+                                            }
+                                        </div>
+                                    </div>
+                                })
+                            }
+                        </div>
+                    </section>
+                    <section className="px-5 py-4 flex-grow">
+                        <SectionTitle>{t("languages-title")}</SectionTitle>
+                        <div className="grid gap-9 grid-cols-2">
+                            {
+                                // @ts-ignore
+                                t("languages", {returnObjects: true}).map((languages, index) => {
+                                    return <div key={index} className=" flex flex-col flex-wrap">
+                                        <div className="flex flex-col gap-2 md:gap-3 print:gap-3">
+                                            <div className="flex flex-wrap gap-x-3 items-center">
+                                                <div className="text-highlight font-bold"
+                                                     data-cy="language-name">{languages.name}
+                                                </div>
+                                                <div className="text-emphasize" data-cy="language-degree">
+                                                    {languages.level}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            })
-                        }
-                    </div>
-                </section>
-            </div>
-        </PageContainer>
+                                })
+                            }
+                        </div>
+                    </section>
+                </div>
+            </PageContainer>
+        </GrayBackground>
     );
 }

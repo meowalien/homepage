@@ -1,6 +1,6 @@
 "use client";
 
-import {FooterBaseProps, LanguageFlagsBase} from "./LanguageFlagsBase";
+import { Base} from "./base";
 import {usePathname} from "next/navigation";
 import {ReactNode} from "react";
 
@@ -13,7 +13,7 @@ export const LanguageFlags = ({lng, children}: LanguageFlagsProps) => {
     const pathname = usePathname()
 
     // const {t} = useTranslation(lng, "footer");
-    return children ? <LanguageFlagsBase lng={lng} pathname={pathname}>
+    return children ? <Base lng={lng} pathname={pathname}>
         {children}
-    </LanguageFlagsBase> : <LanguageFlagsBase lng={lng} pathname={pathname}/>;
+    </Base> : <Base lng={lng} pathname={pathname}/>;
 };

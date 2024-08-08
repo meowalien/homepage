@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mantine/hooks": "^7.12.0",
+    "@nextui-org/react": "^2.4.6",
     "@react-oauth/google": "^0.12.1",
+    "@uiw/react-md-editor": "^4.0.4",
     "accept-language": "^3.0.18",
     "axios": "^1.7.3",
+    "framer-motion": "^11.3.23",
     "i18next": "^23.12.2",
     "i18next-browser-languagedetector": "^8.0.0",
     "i18next-resources-to-backend": "^1.2.1",
@@ -23,7 +27,10 @@
     "react-markdown": "^9.0.1",
     "react-qr-code": "^2.0.15",
     "react-world-flags": "^1.6.0",
+    "recharts": "^2.12.7",
+    "rehype-highlight": "^7.0.0",
     "remark-gfm": "^4.0.0",
+    "remark-toc": "^9.0.0",
     "sharp": "^0.33.4"
   },
   "devDependencies": {
@@ -33,7 +40,9 @@
     "@types/react-world-flags": "^1.4.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
-    "postcss": "^8",
+    "postcss": "^8.4.41",
+    "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

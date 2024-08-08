@@ -1,4 +1,4 @@
-import {LanguageFlagsBase} from "./LanguageFlagsBase";
+import {Base} from "./base";
 import {headers} from "next/headers";
 import {ReactNode} from "react";
 
@@ -13,7 +13,7 @@ export const LanguageFlags = async ({lng, children}: LanguageFlagsProps) => {
     if (pathname === null) {
         throw new Error("x-current-path header is missing");
     }
-    return children?<LanguageFlagsBase lng={lng} pathname={pathname}>
+    return children?<Base lng={lng} pathname={pathname}>
         {children}
-    </LanguageFlagsBase>:<LanguageFlagsBase lng={lng} pathname={pathname}/>;
+    </Base>:<Base lng={lng} pathname={pathname}/>;
 };

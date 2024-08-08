@@ -1,23 +1,18 @@
 import {useTranslation} from "@/i18n";
-import MyMarkdown from "@/components/Markdown";
 import PageContainer from "@/components/PageContainer";
 import {redirect} from 'next/navigation'
+import MyMarkdown from "@/components/MyMarkdown";
+import GrayBackground from "@/components/GrayBackground";
+import Article from "@/components/Article";
 
 type PageProps = { params: { lng: string, article_id: string } };
 
-
-const FormatedMarkdown = ({markdown}: { markdown: string }) => {
-    return (
-        <MyMarkdown
-            className="text-darkest-gray flex flex-col leading-1 [&_li]:list-disc [&_ul]:pl-6 [&_h3]:font-bold [&_ul]:mb-4 [&_p]:mb-4 leading-normal print:text-sm"
-            markdown={markdown}/>
-    );
-}
 
 export async function generateMetadata({params: {lng, article_id}}: PageProps) {
     const namespace = `article.${article_id}`;
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const {t, i18n} = await useTranslation(lng, namespace);
+    // console.log("`${namespace}:title`: ",`${namespace}:title`)
     if (!i18n.exists(`${namespace}:title`)) {
         redirect('/404')
     }
@@ -27,13 +22,12 @@ export async function generateMetadata({params: {lng, article_id}}: PageProps) {
 }
 
 export default async function Page({params: {lng, article_id}}: PageProps) {
-        const namespace = `article.${article_id}`;
+    const namespace = `article.${article_id}`;
 
     const {t, i18n} = await useTranslation(lng, namespace);
-
+    // console.log("name: ",`${namespace}:content`)
+    // console.log("exist: ",i18n.exists(`${namespace}:content`))
     return (
-        <PageContainer params={{lng}}>
-            <FormatedMarkdown markdown={t("content")}/>
-        </PageContainer>
+        <Article lng={lng} markdown={t("content")}/>
     );
 }

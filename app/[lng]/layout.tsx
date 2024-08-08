@@ -4,7 +4,6 @@ import {ReactElement} from "react";
 import {dir} from "i18next";
 import {languages} from "@/i18n/settings";
 import "./globals.css";
-import {GoogleOAuthProvider} from '@react-oauth/google';
 
 type RootLayoutProps = { children: ReactElement; params: { lng: string } };
 

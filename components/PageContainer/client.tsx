@@ -1,12 +1,13 @@
+'use client';
 import {ReactNode} from "react";
-import ChangeLanguageLink from "@/components/ChangeLanguageLink";
+import ChangeLanguageLink from "@/components/ChangeLanguageLink/client";
 
 export type PageProps = { params: { lng: string } };
 
-const PageContainer = async ({children, params: {lng}}: { children?: ReactNode } & PageProps) => {
+const PageContainer = ({children, params: {lng}}: { children?: ReactNode } & PageProps) => {
     return (
         // <div className="bg-main-page-background w-full flex flex-col items-center">
-        // <GrayBackground>
+
         <>
             <div
                 className="page:mt-6 mt-0 print:mt-6 mb-8 w-full max-w-[980px] border-0 page:border-[1px] border-middle-gray bg-white print:border-0">
@@ -14,7 +15,6 @@ const PageContainer = async ({children, params: {lng}}: { children?: ReactNode }
             </div>
             <ChangeLanguageLink lng={lng} className="print:hidden"/>
         </>
-        // </GrayBackground>
         // </div>
     )
 }

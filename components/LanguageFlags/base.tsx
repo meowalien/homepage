@@ -5,9 +5,10 @@ import Link from "next/link";
 
 
 const getFlagCode = (lng: string) => {
-    const languageCountryMap: { [key: string]: string } = {
+    const languageCountryMap: { [key in typeof languages[number]]: string } = {
         'en': 'US',
         'zh-Hant': 'TW',
+        'ja': 'JP',
     };
 
     return languageCountryMap[lng] || '';
@@ -18,7 +19,7 @@ export type FooterBaseProps = {
     pathname: string;
     children?: (tag: ReactNode, index:number) => ReactNode;
 };
-export const LanguageFlagsBase = ({lng, pathname, children}: FooterBaseProps) => {
+export const Base = ({lng, pathname, children}: FooterBaseProps) => {
     // remove every thing before the second slash, if second slash is not present then return empty string
     const path = pathname?.split("/").slice(2).join("/") || "";
     return (

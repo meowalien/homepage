@@ -1,5 +1,5 @@
 export const fallbackLng = "en";
-export const languages = [fallbackLng, "zh-Hant"];
+export const languages = [fallbackLng, "zh-Hant", "ja"];
 export const cookieName = 'i18next'
 export const defaultNS = "translation";
 // lng = 採用的語言, ns = 採用的 name space

@@ -10,13 +10,12 @@ import {cookieName, getOptions, languages} from "./settings";
 
 const runsOnServerSide = typeof window === "undefined";
 
-//
 i18next
     .use(initReactI18next)
     .use(LanguageDetector)
     .use(
         resourcesToBackend(
-            (lng: string, ns: string) => fetch(`${process.env.NEXT_PUBLIC_I18N_ENDPOINT}/${lng}/${ns}`).then(response => response.json())
+            (lng: string, ns: string) => fetch(`${process.env.NEXT_PUBLIC_I18N_ENDPOINT}/${lng}/${ns}` , {cache:"no-cache"}).then(response => response.json())
         )
     )
     .init({
