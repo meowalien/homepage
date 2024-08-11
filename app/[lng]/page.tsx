@@ -247,6 +247,10 @@ export default async function Page({params: {lng}}: PageProps) {
                             }
                         </div>
                     </section>
+                    <section className="px-5 py-4 flex-grow">
+                        <SectionTitle>{t("side_project-title")}</SectionTitle>
+                        <MyMarkdown markdown={t("side_project-content")}/>
+                    </section>
                 </div>
             </PageContainer>
         </GrayBackground>
