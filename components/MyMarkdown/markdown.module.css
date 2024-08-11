@@ -11,7 +11,7 @@
 .markdown h4,
 .markdown h5,
 .markdown h6 {
-    margin: 0.5rem 0 0rem;
+    margin: 0.5rem 0 0.5rem;
     font-weight: bold;
     line-height: 1.2;
 }

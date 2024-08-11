@@ -4,8 +4,7 @@ import {useCallback, useEffect, useState} from "react";
 import Article from "@/components/Article/client";
 import {Input} from "@nextui-org/input";
 import {Button} from "@nextui-org/react";
-import {useDebouncedValue, useDidUpdate, useDisclosure} from '@mantine/hooks';
-import Link from "next/link";
+import {useDebouncedValue, useDisclosure} from '@mantine/hooks';
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {FaTimes} from 'react-icons/fa';
 
@@ -57,7 +56,11 @@ const EditPost = ({lng}: PageProps) => {
             })
             .catch((error: any) => {
                 console.error(error);
-            });
+            }).finally(() => {
+            updateList();
+            postExistHandlers.close();
+            canSubmitHandlers.open();
+        });
     };
 
     const submitPost = () => {
@@ -87,8 +90,16 @@ const EditPost = ({lng}: PageProps) => {
             })
             .catch((error: any) => {
                 console.error(error);
-            });
+            }).finally(() => {
+            updateList();
+            postExistHandlers.open();
+            canSubmitHandlers.close();
+        })
     };
+
+    const getURL = useCallback((name: string) => {
+        return pathname + '?' + createQueryString(searchParams, 'name', name)
+    }, [pathname, searchParams]);
 
     const loadPost = useCallback(() => {
         fetch(`${process.env.NEXT_PUBLIC_I18N_ENDPOINT}/${lng}/${namespace}`, {cache: "no-cache"})
@@ -115,40 +126,50 @@ const EditPost = ({lng}: PageProps) => {
                     }
                     setMarkdownContent(data.content);
                     postExistHandlers.open();
+                    canSubmitHandlers.close();
                 });
-
             })
             .catch((error) => {
                 console.log(error);
                 postExistHandlers.close();
             })
             .finally(() => {
-                const uri = pathname + '?' + createQueryString(searchParams, 'name', articleTitle);
-                console.log("uri: ", uri);
+                const uri = getURL(articleTitle);
+                // console.log("uri: ", uri);
                 router.push(uri);
             });
-    }, [lng, namespace, postExistHandlers, router, pathname, searchParams, articleTitle]);
+    }, [lng, namespace, postExistHandlers, canSubmitHandlers, getURL, articleTitle, router]);
 
     useEffect(() => {
         loadPost();
     }, [debouncedArticleTitle]);
 
-    const updateCanSubmit = () => {
+    const updateCanSubmit = useCallback(() => {
         if (debouncedArticleTitle && markdownContent) {
             canSubmitHandlers.open();
         } else {
             canSubmitHandlers.close();
         }
-    };
+    }, [canSubmitHandlers, debouncedArticleTitle, markdownContent]);
 
-    useDidUpdate(() => {
-        updateCanSubmit();
-    }, [debouncedArticleTitle, markdownContent]);
 
-    const articleLink = `${currOrigin}/${lng}/article/${encodeURIComponent(articleTitle)}`;
+    const articleLink = `/${lng}/article/${encodeURIComponent(articleTitle)}`;
+    const [items, setItems] = useState<string[]>([]);
+
+    const updateList = useCallback(() => {
+        console.log("updateList")
+        fetch(`${process.env.NEXT_PUBLIC_I18N_ENDPOINT}/list/${lng}/article`)
+            .then(response => response.json())
+            .then(data => setItems(data))
+            .catch(error => console.error("Error fetching items:", error));
+    }, [lng]);
+
+    useEffect(() => {
+        updateList();
+    }, [updateList]);
 
     return (
-        <div className="px-10 py-5 flex flex-col desktop:flex-row ">
+        <div className="px-10 py-5 flex flex-col desktop:flex-row h-full">
             {errorMessage && (
                 <div className="fixed top-5 right-5 bg-red-500 text-white p-3 rounded z-50 flex flex-row gap-2">
                     <button onClick={() => setErrorMessage(null)}>
@@ -157,38 +178,61 @@ const EditPost = ({lng}: PageProps) => {
                     <p>{errorMessage}</p>
                 </div>
             )}
-            <div className="flex flex-col items-center desktop:w-[calc(50%-14rem)] flex-shrink-0">
-                <span>Article URL: <Link href={articleLink}>{articleLink}</Link></span>
-                <div className="flex flex-row items-center gap-2 justify-start w-full ">
-                    <Button
-                        isDisabled={!postExist}
-                        color="danger" onClick={() => {
-                        deletePost();
-                        postExistHandlers.close();
-                    }}>
-                        Delete
-                    </Button>
-                    <Input type="text" label="Article Name" value={articleTitle} onValueChange={(newValue) => {
-                        setArticleTitle(newValue);
-                    }}/>
-                    <Button
-                        isDisabled={!canSubmit}
-                        color="primary" onClick={() => {
-                        submitPost();
-                        postExistHandlers.open();
-                        canSubmitHandlers.close();
-                    }}>
-                        Submit
-                    </Button>
+
+            <div className="flex flex-col desktop:flex-row desktop:w-[calc(50%-12rem)] flex-shrink-0">
+                <ul className="min-w-[20rem] flex flex-col gap-1 overflow-x-scroll h-full mb-3 desktop:mb-0 ">
+                    {items.map((item, index) => (
+                        <li key={index}>
+                            <Button
+                                className="w-full bg-purple-200"
+                                onClick={() => {
+                                    setArticleTitle(item)
+                                }}>
+                                {item}
+                            </Button>
+                        </li>
+                    ))}
+                </ul>
+                <div className="flex flex-col items-center">
+
+                    <div className="flex flex-row items-center gap-2 justify-start w-full ">
+                        <Button
+                            isDisabled={!postExist}
+                            color="danger" onClick={() => {
+                            deletePost();
+                        }}>
+                            Delete
+                        </Button>
+                        <Button
+                            color="secondary"
+                            onClick={() => {
+                                navigator.clipboard.writeText(articleLink);
+                            }}>Copy URL</Button>
+                        <Input type="text" label="Article Name" value={articleTitle} onValueChange={(newValue) => {
+                            setArticleTitle(newValue);
+                            updateCanSubmit();
+                        }}/>
+                        <Button
+                            isDisabled={!canSubmit}
+                            color="primary" onClick={() => {
+                            submitPost();
+
+                        }}>
+                            Submit
+                        </Button>
+                    </div>
+                    <MDEditor
+                        extraCommands={[]}
+                        className=" w-full"
+                        height="100%"
+                        preview="edit"
+                        value={markdownContent}
+                        onChange={(value) => {
+                            setMarkdownContent(value || '')
+                            updateCanSubmit()
+                        }}
+                    />
                 </div>
-                <MDEditor
-                    extraCommands={[]}
-                    className=" w-full"
-                    height="100%"
-                    preview="edit"
-                    value={markdownContent}
-                    onChange={(value) => setMarkdownContent(value || '')}
-                />
             </div>
             <Article lng={lng} markdown={markdownContent}/>
         </div>
