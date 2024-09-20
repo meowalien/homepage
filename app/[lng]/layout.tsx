@@ -7,9 +7,9 @@ import "./globals.css";
 
 type RootLayoutProps = { children: ReactElement; params: { lng: string } };
 
-export async function generateStaticParams() {
-    return languages.map((lng) => ({lng}));
-}
+// export async function generateStaticParams() {
+//     return languages.map((lng) => ({lng}));
+// }
 
 const inter = Inter({subsets: ["latin"]});
 
